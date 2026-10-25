@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Synora — Хүүхдийн хөгжлийг хамтдаа дэмжицгээе{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> 18–24 сартай хүүхдэд зориулсан</span>
+      <h1>Хүүхдийн хөгжлийг <span>эртнээс</span> анхаарцгаая</h1>
+      <p class="hero-lead">Synora нь 18–24 сартай хүүхдийн хөгжлийн зарим онцлогийг анзаарахад эцэг эхчүүдэд туслах, Q-CHAT-10 асуулгад суурилсан анхан шатны скринингийн платформ юм.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ url_for('screening') }}">Үнэлгээг эхлүүлэх <span aria-hidden="true">→</span></a>
+        <a class="button button-secondary" href="{{ url_for('about') }}">Дэлгэрэнгүй мэдээлэл</a>
+      </div>
+      <p class="hero-caption"><span aria-hidden="true">✓</span> Үнэгүй · 10 асуулт · 5 минут орчим</p>
+    </div>
+    <div class="hero-art" aria-label="Хүүхдийн хөгжлийг дэмжиж буй гэр бүлийн дүрслэл" role="img">
+      <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+      <div class="art-sun" aria-hidden="true"></div>
+      <div class="art-card art-card-top"><span class="art-icon lavender" aria-hidden="true">♡</span><span>Хайр, дэмжлэг<br>хамгийн чухал</span></div>
+      <div class="family-illustration" aria-hidden="true">
+        <div class="plant plant-left"><i></i><i></i><i></i><b></b></div>
+        <div class="parent parent-left"><div class="head"></div><div class="body"></div></div>
+        <div class="child-figure"><div class="head"></div><div class="hair"></div><div class="body"></div><div class="leg leg-left"></div><div class="leg leg-right"></div></div>
+        <div class="parent parent-right"><div class="head"></div><div class="body"></div></div>
+        <div class="toy" aria-hidden="true">✦</div>
+        <div class="rug"></div>
+      </div>
+      <div class="art-card art-card-bottom"><span class="art-icon mint" aria-hidden="true">✳</span><span>Алхам бүрийг<br>хамтдаа</span></div>
+      <div class="art-spark spark-one" aria-hidden="true">✦</div><div class="art-spark spark-two" aria-hidden="true">✧</div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="Үйлчилгээний мэдээлэл">
+  <div class="container trust-items"><span><b>10</b> асуулт</span><span><b>5</b> минут орчим</span><span><b>0</b> оношилгоо</span></div>
+</section>
+
+<section class="section section-steps">
+  <div class="container">
+    <div class="section-heading"><span class="eyebrow">Хэрхэн ажилладаг вэ?</span><h2>Гурван энгийн алхам</h2><p>Хүүхдийнхээ өдөр тутмын зан үйлийн талаар бодож, өөрт тохирох хариултыг сонгоорой.</p></div>
+    <div class="steps-grid">
+      <article class="step-card"><span class="step-number">01</span><div class="step-icon step-purple" aria-hidden="true">☷</div><h3>Асуулгад хариулах</h3><p>Хүүхдийнхээ өдөр тутмын зан үйлийг эргэцүүлэн 10 асуултад хариулна.</p></article>
+      <article class="step-card"><span class="step-number">02</span><div class="step-icon step-teal" aria-hidden="true">◉</div><h3>Үр дүнгээ харах</h3><p>Q-CHAT-10 асуулгын оноо болон түүний утгын талаар товч мэдээлэл авна.</p></article>
+      <article class="step-card"><span class="step-number">03</span><div class="step-icon step-peach" aria-hidden="true">↗</div><h3>Дараагийн алхмаа төлөвлөх</h3><p>Шаардлагатай бол хүүхдийн эмч, холбогдох мэргэжилтэнтэй зөвлөлдөөрэй.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="notice-section">
+  <div class="container"><div class="notice-card"><span class="notice-icon" aria-hidden="true">i</span><div><h2>Чухал мэдээлэл</h2><p>Synora нь эмнэлгийн оношилгооны хэрэгсэл биш. Энэхүү үнэлгээ нь хүүхдийн хөгжлийн зарим шинжийг анзаарахад туслах зорилготой бөгөөд мэргэжлийн оношилгоог орлохгүй.</p></div></div></div>
+</section>
+
+<section class="section faq-section" id="faq">
+  <div class="container faq-layout">
+    <div class="section-heading faq-intro"><span class="eyebrow">Түгээмэл асуултууд</span><h2>Танд хэрэгтэй<br>мэдээлэл</h2><p>Скрининг хийхээс өмнө платформын тухай болон үр дүнг хэрхэн ойлгох талаар уншаарай.</p><a class="text-link" href="{{ url_for('about') }}">Synora төслийн тухай <span aria-hidden="true">→</span></a></div>
+    <div class="faq-list">
+      <details><summary>Synora аутизмыг оношлох уу?<span aria-hidden="true"></span></summary><p>Үгүй. Synora нь зөвхөн анхан шатны скринингийн мэдээлэл өгнө. Оношилгоог зөвхөн мэргэшсэн эрүүл мэндийн ажилтан хийдэг.</p></details>
+      <details><summary>Үнэлгээнд хэн хамрагдах вэ?<span aria-hidden="true"></span></summary><p>Энэхүү хувилбар нь 18–24 сартай хүүхдийн өдөр тутмын зан үйлийн талаар асуухад зориулагдсан.</p></details>
+      <details><summary>Миний хариултыг хадгалах уу?<span aria-hidden="true"></span></summary><p>Анхдагч тохиргоогоор хариултыг байнга хадгалахгүй. Firebase хадгалалтыг тохируулсан үед ч таны ил тод зөвшөөрөлгүйгээр мэдээлэл хадгалахгүй.</p></details>
+      <details><summary>Оноо босгоос доогуур гарвал санаа зовох хэрэггүй юу?<span aria-hidden="true"></span></summary><p>Босго оноонд хүрээгүй үр дүн нь аутизм байхгүйг батлахгүй. Санаа зовж буй зүйл байвал мэргэжлийн эмчтэй зөвлөлдөөрэй.</p></details>
+    </div>
+  </div>
+</section>
+<section class="closing-cta"><div class="container closing-inner"><div><span class="eyebrow">Хамтдаа эхэлье</span><h2>Хүүхдийнхээ хөгжлийг<br>анзаарахад нэг алхам ойртлоо.</h2></div><a class="button button-white" href="{{ url_for('screening') }}">Үнэлгээг эхлүүлэх <span aria-hidden="true">→</span></a></div></section>
+{% endblock %}

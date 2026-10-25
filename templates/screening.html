@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Анхан шатны үнэлгээ — Synora{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero"><div class="container"><span class="eyebrow">Q-CHAT-10 · 18–24 сар</span><h1>Хүүхдийн хөгжлийн<br><span>анхан шатны үнэлгээ</span></h1><p>Дараах 10 асуултад хүүхдийнхээ өдөр тутмын зан үйлд хамгийн сайн тохирох хариултыг сонгоно уу.</p></div></section>
+<section class="screening-section">
+  <div class="container screening-layout">
+    <div class="screening-main">
+      <form id="screening-form" novalidate>
+        <div class="progress-panel">
+          <div class="progress-meta"><span id="question-count">Асуулт 1 / 10</span><span id="progress-percent">10%</span></div>
+          <div class="progress-track" role="progressbar" aria-label="Асуулгын явц" aria-valuemin="0" aria-valuemax="10" aria-valuenow="1" id="progress-bar"><span id="progress-fill"></span></div>
+        </div>
+        <div class="question-card">
+          <p class="question-kicker" id="question-kicker">АСУУЛТ 01</p>
+          <fieldset class="question-fieldset">
+            <legend class="question-text" id="question-text" tabindex="-1"></legend>
+            <div class="answer-list" id="answer-list"></div>
+          </fieldset>
+          <p class="form-error" id="question-error" role="alert" aria-live="polite"></p>
+          <div class="question-controls">
+            <button class="button button-secondary" type="button" id="previous-button" disabled>← Өмнөх</button>
+            <button class="button button-primary" type="button" id="next-button">Дараах асуулт <span aria-hidden="true">→</span></button>
+            <button class="button button-primary" type="submit" id="submit-button" hidden>Үр дүн харах <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        <div class="screening-options">
+          <label class="age-label" for="age-months">Хүүхдийн нас (сараар)<span class="required-mark"> *</span></label>
+          <select id="age-months" name="age_months" required>
+            <option value="">Насаа сонгоно уу</option>
+            {% for month in range(18, 25) %}<option value="{{ month }}">{{ month }} сар</option>{% endfor %}
+          </select>
+          <p class="field-hint">Энэхүү үнэлгээ 18–24 сартай хүүхдэд зориулагдсан.</p>
+          <label class="consent-option">
+            <input type="checkbox" id="storage-consent" name="consent">
+            <span>Хэрэв энэ платформд Firebase хадгалалт идэвхжсэн бол миний хариулт, оноо болон насыг хадгалахыг зөвшөөрч байна. Зөвшөөрөхгүй байсан ч үнэлгээг үргэлжлүүлж болно.</span>
+          </label>
+          <p class="field-hint">Анхдагчаар хариултыг байнга хадгалахгүй. Дэлгэрэнгүйг <a href="{{ url_for('privacy') }}">нууцлалын мэдээллээс</a> үзнэ үү.</p>
+        </div>
+      </form>
+      <div class="form-error submit-error" id="submit-error" role="alert" aria-live="assertive"></div>
+    </div>
+    <aside class="screening-aside">
+      <div class="aside-card"><span class="aside-icon" aria-hidden="true">♡</span><h2>Тайван, бодитоор хариулаарай</h2><p>Зөв эсвэл буруу хариулт гэж байхгүй. Хүүхдийнхээ сүүлийн үеийн өдөр тутмын зан үйлийг бодож сонгоно уу.</p></div>
+      <div class="aside-note"><strong>Сануулахад</strong><p>Энэ асуулга нь оношилгоо биш бөгөөд мэргэжлийн зөвлөгөөг орлохгүй.</p></div>
+    </aside>
+  </div>
+</section>
+<script id="question-data" type="application/json">{{ questions|tojson }}</script>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/screening.js') }}" defer></script>{% endblock %}

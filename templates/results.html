@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Таны үнэлгээний мэдээлэл — Synora{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero results-hero"><div class="container"><span class="eyebrow"><span class="eyebrow-dot"></span> Үнэлгээ дууслаа</span><h1>Хариултаа өгсөнд<br><span>баярлалаа</span></h1><p>Энэ мэдээллийг хүүхдийн хөгжлийн анхан шатны скринингийн үр дүн гэж ойлгоно уу.</p></div></section>
+<section class="results-section">
+  <div class="container results-container">
+    <article class="result-score-card">
+      <div class="result-copy"><span class="result-label">Q-CHAT-10 АСУУЛГЫН ОНОО</span><h2>Q-CHAT-10 асуулгын оноо: <span>{{ result.score }}/10</span></h2><p class="score-age">Үнэлгээнд хамрагдсан нас: {{ result.age_months }} сар</p></div>
+      <div class="score-ring" role="img" aria-label="10-аас {{ result.score }} оноо" style="--score-angle: {{ result.score * 36 }}deg"><div><strong>{{ result.score }}</strong><span>/ 10</span></div></div>
+      <div class="score-bar-wrap"><div class="score-bar" aria-hidden="true"><span style="width: {{ result.score * 10 }}%"></span></div><div class="score-ticks"><span>0</span><span>Лавлагааны босго: 3</span><span>10</span></div></div>
+    </article>
+    <article class="interpretation-card {% if result.threshold_reached %}interpretation-threshold{% else %}interpretation-below{% endif %}">
+      <span class="interpretation-icon" aria-hidden="true">{% if result.threshold_reached %}i{% else %}✓{% endif %}</span>
+      <div><span class="result-label">ҮР ДҮНГИЙН ТАЙЛБАР</span><h2>{{ result.interpretation }}</h2><p>{{ result.guidance }}</p></div>
+    </article>
+    <div class="next-steps">
+      <h2>Дараагийн алхам</h2>
+      <div class="next-step-card"><span class="next-step-number">01</span><p>Энэ мэдээллийг хүүхдийнхээ хөгжлийн талаар мэргэжлийн хүнтэй ярилцахдаа лавлагаа болгон ашиглаж болно.</p></div>
+      <div class="next-step-card"><span class="next-step-number">02</span><p>Таны санаа зовж буй зүйл байвал онооноос үл хамааран хүүхдийн эмчтэй зөвлөлдөөрэй.</p></div>
+    </div>
+    <div class="medical-disclaimer"><strong>Чухал:</strong> Энэ бол скринингийн оноо болохоос онош эсвэл аутизмын магадлал биш. Үр дүнгээр хүүхдийг эрүүл, эрүүл бус, хэвийн эсвэл хэвийн бус гэж тодорхойлохгүй.</div>
+    <div class="results-actions"><a class="button button-primary" href="{{ url_for('screening') }}">Үнэлгээг дахин эхлүүлэх</a><button class="button button-secondary" type="button" id="print-results">Үр дүнг хэвлэх</button></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/results.js') }}" defer></script>{% endblock %}

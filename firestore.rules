@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Screening writes are performed only by the server Admin SDK after consent.
+    // Prevent clients from reading or writing sensitive screening records directly.
+    match /screenings/{screeningId} {
+      allow read, write: if false;
+    }
+  }
+}
