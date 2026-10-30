@@ -8,7 +8,7 @@
       <h1>Хүүхдийн хөгжлийг <span>эртнээс</span> анхаарцгаая</h1>
       <p class="hero-lead">Synora нь 18–24 сартай хүүхдийн хөгжлийн зарим онцлогийг анзаарахад эцэг эхчүүдэд туслах, Q-CHAT-10 асуулгад суурилсан анхан шатны скринингийн платформ юм.</p>
       <div class="hero-actions">
-        <a class="button button-primary" href="{{ url_for('screening') }}">Үнэлгээг эхлүүлэх <span aria-hidden="true">→</span></a>
+        <a class="button button-primary" href="{{ url_for('assessment_start') }}">Үнэлгээг эхлүүлэх <span aria-hidden="true">→</span></a>
         <a class="button button-secondary" href="{{ url_for('about') }}">Дэлгэрэнгүй мэдээлэл</a>
       </div>
       <p class="hero-caption"><span aria-hidden="true">✓</span> Үнэгүй · 10 асуулт · 5 минут орчим</p>
@@ -37,11 +37,11 @@
 
 <section class="section section-steps">
   <div class="container">
-    <div class="section-heading"><span class="eyebrow">Хэрхэн ажилладаг вэ?</span><h2>Гурван энгийн алхам</h2><p>Хүүхдийнхээ өдөр тутмын зан үйлийн талаар бодож, өөрт тохирох хариултыг сонгоорой.</p></div>
+    <div class="section-heading"><span class="eyebrow">Хэрхэн ажилладаг вэ?</span><h2>Нэг урсгал, гурван алхам</h2><p>Үнэлгээ эхлэхийн өмнө асран хамгаалагчийн мэдээлэл, зөвшөөрөлтэй танилцаарай.</p></div>
     <div class="steps-grid">
-      <article class="step-card"><span class="step-number">01</span><div class="step-icon step-purple" aria-hidden="true">☷</div><h3>Асуулгад хариулах</h3><p>Хүүхдийнхээ өдөр тутмын зан үйлийг эргэцүүлэн 10 асуултад хариулна.</p></article>
-      <article class="step-card"><span class="step-number">02</span><div class="step-icon step-teal" aria-hidden="true">◉</div><h3>Үр дүнгээ харах</h3><p>Q-CHAT-10 асуулгын оноо болон түүний утгын талаар товч мэдээлэл авна.</p></article>
-      <article class="step-card"><span class="step-number">03</span><div class="step-icon step-peach" aria-hidden="true">↗</div><h3>Дараагийн алхмаа төлөвлөх</h3><p>Шаардлагатай бол хүүхдийн эмч, холбогдох мэргэжилтэнтэй зөвлөлдөөрэй.</p></article>
+      <article class="step-card"><span class="step-number">01</span><div class="step-icon step-purple" aria-hidden="true">☷</div><h3>Q-CHAT-10</h3><p>Хүүхдийнхээ өдөр тутмын зан үйлийг бодож, 10 асуултад хариулна.</p></article>
+      <article class="step-card"><span class="step-number">02</span><div class="step-icon step-teal" aria-hidden="true">◉</div><h3>Камерын туршилт</h3><p>Хүсвэл browser доторх landmark/gaze туршилтыг хийнэ, эсвэл алгасана.</p></article>
+      <article class="step-card"><span class="step-number">03</span><div class="step-icon step-peach" aria-hidden="true">↗</div><h3>Тусдаа үр дүн</h3><p>Асуулга болон боломжтой хэмжилтийн хязгаарлалтыг ялгаж харна.</p></article>
     </div>
   </div>
 </section>
@@ -61,5 +61,5 @@
     </div>
   </div>
 </section>
-<section class="closing-cta"><div class="container closing-inner"><div><span class="eyebrow">Хамтдаа эхэлье</span><h2>Хүүхдийнхээ хөгжлийг<br>анзаарахад нэг алхам ойртлоо.</h2></div><a class="button button-white" href="{{ url_for('screening') }}">Үнэлгээг эхлүүлэх <span aria-hidden="true">→</span></a></div></section>
+<section class="closing-cta"><div class="container closing-inner"><div><span class="eyebrow">Хамтдаа эхэлье</span><h2>Хүүхдийнхээ хөгжлийг<br>анзаарахад нэг алхам ойртлоо.</h2></div><a class="button button-white" href="{{ url_for('assessment_start') }}">Үнэлгээг эхлүүлэх <span aria-hidden="true">→</span></a></div></section>
 {% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Судалгааны загвар — Synora{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container">
+    <span class="eyebrow">Нүдний хөдөлгөөний судалгааны туршилт</span>
+    <h1>Судалгааны<br><span>таамаглал</span></h1>
+    <p>Энэ хуудас нь энгийн хэрэглэгчийн үнэлгээний урсгалд орохгүй, зөвхөн хяналттай хөгжүүлэлт болон эрхтэй бодит eye-tracking хэмжилтийн туршилтад зориулагдсан.</p>
+  </div>
+</section>
+<section class="research-section">
+  <div class="container research-layout">
+    <div class="research-card">
+      <h2>Хэмжилтийн утгууд</h2>
+      <p class="research-intro">Энэ хуудас энгийн үнэлгээний нэг хэсэг биш. Хяналттай судалгаанд зөвшөөрөлтэй, бодит eye-tracking хэмжилтээс гарсан утгыг загварын өгөгдөлд хэрэглэсэн нэгж, боловсруулалттай ижил байдлаар оруулна уу. Утгын хязгаар таамаглаж тогтоохгүй.</p>
+      <form id="research-form" novalidate>
+        <div class="research-fields">
+          <div class="research-field">
+            <label for="tracking_ratio">tracking_ratio</label>
+            <input id="tracking_ratio" name="tracking_ratio" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="research-error">
+          </div>
+          <div class="research-field">
+            <label for="ball_visible_rate">ball_visible_rate</label>
+            <input id="ball_visible_rate" name="ball_visible_rate" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="research-error">
+          </div>
+          <div class="research-field">
+            <label for="pointing_rate">pointing_rate</label>
+            <input id="pointing_rate" name="pointing_rate" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="research-error">
+          </div>
+          <div class="research-field">
+            <label for="eyes_rate">eyes_rate</label>
+            <input id="eyes_rate" name="eyes_rate" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="research-error">
+          </div>
+          <div class="research-field">
+            <label for="face_rate">face_rate</label>
+            <input id="face_rate" name="face_rate" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="research-error">
+          </div>
+          <div class="research-field">
+            <label for="Age">Age</label>
+            <input id="Age" name="Age" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="research-error">
+          </div>
+        </div>
+        <p id="research-error" class="form-error research-message" role="alert" aria-live="assertive"></p>
+        <p id="research-loading" class="research-loading" role="status" aria-live="polite" hidden>Таамаглалыг боловсруулж байна. Түр хүлээнэ үү…</p>
+        <button id="research-submit" class="button button-primary" type="submit">Судалгааны таамаглал авах</button>
+      </form>
+      <section id="research-result" class="research-result" aria-labelledby="research-result-title" hidden>
+        <h2 id="research-result-title">Загварын туршилтын үр дүн</h2>
+        <dl>
+          <div><dt>Ангиллын код</dt><dd id="result-class-id"></dd></div>
+          <div><dt>Загварын шошго</dt><dd id="result-label"></dd></div>
+          <div><dt>Онош мөн эсэх</dt><dd id="result-diagnosis"></dd></div>
+        </dl>
+        <p class="research-disclaimer">Энэ бол судалгааны туршилтын загварын таамаглал бөгөөд эмнэлзүйн онош, үнэлгээ эсвэл магадлал биш. Мэргэжлийн дүгнэлтийг орлохгүй.</p>
+      </section>
+    </div>
+    <aside class="research-aside">
+      <div class="aside-note">
+        <strong>Чухал анхааруулга</strong>
+        <p>Үр дүнг онош, эмнэлзүйн дүгнэлт гэж ойлгож болохгүй. Таних мэдээлэл оруулахгүй; зөвхөн бодит хэмжилтийн зургаан тоон утгыг илгээнэ.</p>
+      </div>
+      <a class="research-back-link" href="{{ url_for('screening') }}">Q-CHAT-10 скрининг рүү буцах</a>
+    </aside>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/research.js') }}" defer></script>{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Камерын нүүрний landmark туршилт — Synora{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container">
+    <span class="eyebrow">{% if assessment_active %}АЛХАМ 2 / 3 · {% endif %}Browser-based camera туршилт</span>
+    <h1>Нүүрний landmark<br><span>дүрслэл</span></h1>
+    <p>Камерын туршилтаар дүрсийг таны Chrome браузер дотор боловсруулж, нүүр болон нүдний landmark-уудыг бодит хугацаанд дүрслэнэ.</p>
+  </div>
+</section>
+<section class="camera-section" {% if assessment_active %}data-assessment-id="{{ assessment_id }}"{% endif %}>
+  <div class="container camera-layout">
+    <div class="camera-main">
+      <div class="camera-panel">
+        <div class="camera-controls">
+          <label for="camera-device">Камер сонгох</label>
+          <select id="camera-device" disabled>
+            <option value="">Эхлээд камерын зөвшөөрөл өгнө үү</option>
+          </select>
+          <div class="camera-buttons">
+            <button id="camera-start" class="button button-primary" type="button">Камер эхлүүлэх</button>
+            <button id="camera-stop" class="button button-secondary" type="button" disabled>Камер зогсоох</button>
+          </div>
+          <label class="camera-consent">
+            <input id="camera-consent" type="checkbox">
+            <span>Энэ төхөөрөмжийн камерыг зөвхөн энэ туршилтын хугацаанд ашиглахыг зөвшөөрч байна. Камерын дүрс сервер рүү илгээгдэхгүй, зураг хадгалахгүй, бичлэг хийхгүй.</span>
+          </label>
+        </div>
+
+        <div class="camera-preview" id="camera-preview">
+          <video id="camera-video" autoplay muted playsinline aria-label="Камерын шууд дүрс"></video>
+          <canvas id="landmark-overlay" aria-hidden="true"></canvas>
+          <div id="calibration-target" class="calibration-target" aria-hidden="true" hidden></div>
+          <div id="gaze-point" class="gaze-point" aria-hidden="true" hidden></div>
+          <p id="camera-placeholder" class="camera-placeholder">Камер эхлээгүй байна</p>
+        </div>
+
+        <div class="calibration-panel">
+          <div>
+            <h2>5 цэгийн калибровк</h2>
+            <p>Цэг бүр гарч ирэхэд түүн рүү харна уу. Цэг бүрд 8 хүчинтэй дээж цугларна; нүүр эсвэл хоёр нүд найдвартай илрээгүй кадрыг тооцохгүй.</p>
+          </div>
+          <div class="camera-buttons">
+            <button id="calibration-start" class="button button-primary" type="button" disabled>Калибровк эхлүүлэх</button>
+            <button id="calibration-cancel" class="button button-secondary" type="button" disabled>Калибровк цэвэрлэх</button>
+          </div>
+          <p id="calibration-status" class="calibration-status" role="status" aria-live="polite">Камер эхлүүлсний дараа калибровк хийнэ.</p>
+        </div>
+
+        <div class="camera-status-grid" aria-live="polite">
+          <div class="camera-status-item">
+            <span class="camera-status-label">Камерын төлөв</span>
+            <strong id="camera-status" data-state="idle">Холбогдоогүй</strong>
+          </div>
+          <div class="camera-status-item">
+            <span class="camera-status-label">Нүүр илэрсэн эсэх</span>
+            <strong id="face-status">Камер асаахыг хүлээж байна</strong>
+          </div>
+          <div class="camera-status-item">
+            <span class="camera-status-label">Нүдний landmark төлөв</span>
+            <strong id="eye-status">Эхлээгүй</strong>
+          </div>
+          <div class="camera-status-item">
+            <span class="camera-status-label">Landmark илрүүлэлт</span>
+            <strong id="landmark-status">Эхлээгүй</strong>
+          </div>
+          <div class="camera-status-item">
+            <span class="camera-status-label">Tracking чанарын төлөв</span>
+            <strong id="tracking-status">Хэмжээгүй</strong>
+          </div>
+          <div class="camera-status-item">
+            <span class="camera-status-label">Ойролцоо gaze чиглэл</span>
+            <strong id="gaze-direction">Боломжгүй</strong>
+          </div>
+        </div>
+        <p class="camera-estimate-note">Тооцоолсон харцны чиглэл болон цэг нь туршилтын, ойролцоо үзүүлэлт бөгөөд clinical accuracy баталгаажаагүй.</p>
+        <p id="camera-error" class="form-error camera-error" role="alert" aria-live="assertive"></p>
+        {% if assessment_active %}
+        <section class="camera-flow-actions" aria-labelledby="camera-flow-title">
+          <h2 id="camera-flow-title">Үнэлгээг үргэлжлүүлэх</h2>
+          <p>Камерын туршилт сайн дурын. Алгасах эсвэл төхөөрөмж/зөвшөөрлийн асуудлаас болж боломжгүй бол үр дүнд шууд шилжинэ. Энэ нь эрсдэлийн үзүүлэлт биш.</p>
+          <button id="assessment-continue" class="button button-primary" type="button">Туршилтыг дуусгаж үр дүн харах</button>
+          <form action="{{ url_for('assessment_eye_tracking') }}" method="post" class="camera-skip-form">
+            <button class="button button-secondary" type="submit" name="status" value="skipped">Камерын туршилтыг алгасах</button>
+            <button class="button button-secondary" type="submit" name="status" value="unavailable">Камер ашиглах боломжгүй</button>
+          </form>
+          <p id="assessment-flow-status" role="status" aria-live="polite"></p>
+          <form id="assessment-complete-form" action="{{ url_for('assessment_eye_tracking') }}" method="post" hidden>
+            <input id="assessment-complete-status" type="hidden" name="status" value="unavailable">
+          </form>
+        </section>
+        {% endif %}
+      </div>
+    </div>
+
+    <aside class="camera-aside">
+      <div class="aside-note">
+        <strong>Нууцлал</strong>
+        <p>Видео болон нүүрний зураг сервер рүү дамжихгүй, хадгалахгүй, бичлэг хийхгүй. Илрүүлэлт бүхэлдээ таны браузер дотор явагдана.</p>
+      </div>
+      <div class="aside-note camera-warning">
+        <strong>Судалгааны аюулгүй хэрэглээ</strong>
+        <p>Туршилтад хүүхэд оролцуулах бол асран хамгаалагчийн зөвшөөрөл болон хүүхдийн өөрийн оролцох зөвшөөрлийг авна уу. Камерын дүрсийг оношилгоонд ашиглахгүй.</p>
+      </div>
+      <div class="camera-limit-note">
+        <strong>Чухал хязгаарлалт</strong>
+        <p>Нүүрний landmark илэрсэн нь нүдний харцны чиглэлийг нарийн хэмжсэн гэсэн үг биш. Gaze нь iris-ийн байрлалыг нүдний хүрээтэй харьцуулсан туршилтын ойролцоо тооцоо. Нүүр илэрсэн ч нүд/iris найдвартай илрээгүй бол дээжийг хасна. Tracking тасрах нь зан үйл эсвэл эрүүл мэндийн дохио биш. Fixation duration, оношилгоо, ASD prediction хийхгүй; нарийвчлалын хувь харуулахгүй.</p>
+      </div>
+      <p class="camera-secure-context">Камер ашиглахын тулд HTTPS эсвэл localhost дээр нээнэ үү. Chrome-д laptop-ийн суурилуулсан камер болон USB webcam-ээс сонгож болно.</p>
+    </aside>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', filename='js/camera.js') }}"></script>{% endblock %}

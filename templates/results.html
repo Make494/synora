@@ -1,25 +1,121 @@
 {% extends "base.html" %}
-{% block title %}Таны үнэлгээний мэдээлэл — Synora{% endblock %}
+{% block title %}Үнэлгээний мэдээллийн самбар — Synora{% endblock %}
 {% block content %}
-<section class="page-hero compact-hero results-hero"><div class="container"><span class="eyebrow"><span class="eyebrow-dot"></span> Үнэлгээ дууслаа</span><h1>Хариултаа өгсөнд<br><span>баярлалаа</span></h1><p>Энэ мэдээллийг хүүхдийн хөгжлийн анхан шатны скринингийн үр дүн гэж ойлгоно уу.</p></div></section>
+<section class="page-hero compact-hero results-hero">
+  <div class="container">
+    <span class="eyebrow"><span class="eyebrow-dot"></span> АЛХАМ 3 / 3 · Үнэлгээний мэдээлэл</span>
+    <h1>Үр дүнгийн<br><span>мэдээллийн самбар</span></h1>
+    <p>Асуулгын оноо, браузер доторх камерын туршилтын тойм, загварын боломжийг тус тусад нь харуулна.</p>
+  </div>
+</section>
 <section class="results-section">
   <div class="container results-container">
-    <article class="result-score-card">
-      <div class="result-copy"><span class="result-label">Q-CHAT-10 АСУУЛГЫН ОНОО</span><h2>Q-CHAT-10 асуулгын оноо: <span>{{ result.score }}/10</span></h2><p class="score-age">Үнэлгээнд хамрагдсан нас: {{ result.age_months }} сар</p></div>
-      <div class="score-ring" role="img" aria-label="10-аас {{ result.score }} оноо" style="--score-angle: {{ result.score * 36 }}deg"><div><strong>{{ result.score }}</strong><span>/ 10</span></div></div>
-      <div class="score-bar-wrap"><div class="score-bar" aria-hidden="true"><span style="width: {{ result.score * 10 }}%"></span></div><div class="score-ticks"><span>0</span><span>Лавлагааны босго: 3</span><span>10</span></div></div>
+    <section class="result-data-status" aria-labelledby="data-status-title">
+      <div>
+        <span class="result-label">МЭДЭЭЛЛИЙН ХАНГАЛТТАЙ БАЙДАЛ</span>
+        <h2 id="data-status-title">Хэсэгчилсэн мэдээлэл</h2>
+        <p>Q-CHAT-10-ын оноо байна. Камерын хэмжилт боломжгүй эсвэл судалгааны хэмжүүртэй дүйцэхгүй байж болно. Энэ үнэлгээний урсгал ML таамаглал гаргахгүй.</p>
+      </div>
+      <ul class="result-source-list">
+        <li><span>Q-CHAT-10</span><strong>Боломжтой</strong></li>
+        <li><span>Eye-tracking</span><strong id="eye-source-status">{{ eye_tracking_label }}</strong></li>
+        <li><span>ML загвар</span><strong>Боломжгүй</strong></li>
+      </ul>
+    </section>
+
+    <section class="composite-score-card" aria-labelledby="composite-score-title">
+      <div class="composite-score-heading">
+        <div>
+          <span class="result-label">ТУРШИЛТЫН 1–10 ХУВИЙН АНГИЛЛЫН ХҮСНЭГТ</span>
+          <h2 id="composite-score-title">Нэгтгэсэн оноо <span>— / 10</span></h2>
+        </div>
+        <span class="score-pending-badge">Шинжлэх ухааны баталгаажуулалт хүлээж байна</span>
+      </div>
+      <p class="composite-score-explanation">Доорх таван түвшин нь зөвхөн UI-ийн туршилтын ангилал. Баталгаажсан оноолтын арга, босго байхгүй учраас ангилал оноохгүй. Q-CHAT-10 болон eye-tracking-ийг дурын жингээр нийлүүлэхгүй, загварын магадлалыг 1–10 оноо болгохгүй.</p>
+      <ol class="provisional-score-levels" aria-label="Баталгаажаагүй таван UI ангилал">
+        <li><span>1–2</span><strong>Маш бага</strong></li>
+        <li><span>3–4</span><strong>Бага</strong></li>
+        <li><span>5–6</span><strong>Дунд</strong></li>
+        <li><span>7–8</span><strong>Өндөр</strong></li>
+        <li><span>9–10</span><strong>Маш өндөр</strong></li>
+      </ol>
+    </section>
+
+    <article class="result-score-card" aria-labelledby="qchat-title">
+      <div class="result-copy">
+        <span class="result-label">Q-CHAT-10 · ТУСДАА СКРИНИНГИЙН ҮР ДҮН</span>
+        <h2 id="qchat-title">Q-CHAT-10 асуулгын оноо: <span>{{ result.score }}/10</span></h2>
+        <p class="score-age">Үнэлгээнд хамрагдсан нас: {{ result.age_months }} сар. Энэ нь зөвхөн асуулгын одоогийн оноолтын аргын үр дүн.</p>
+      </div>
+      <div class="score-ring" role="img" aria-label="Q-CHAT-10 асуулгын 10-аас {{ result.score }} оноо" style="--score-angle: {{ result.score * 36 }}deg">
+        <div><strong>{{ result.score }}</strong><span>/ 10</span></div>
+      </div>
+      <div class="score-bar-wrap">
+        <div class="score-bar" aria-hidden="true"><span style="width: {{ result.score * 10 }}%"></span></div>
+        <div class="score-ticks"><span>0</span><span>Асуулгын лавлагааны босго: 3</span><span>10</span></div>
+      </div>
     </article>
     <article class="interpretation-card {% if result.threshold_reached %}interpretation-threshold{% else %}interpretation-below{% endif %}">
       <span class="interpretation-icon" aria-hidden="true">{% if result.threshold_reached %}i{% else %}✓{% endif %}</span>
-      <div><span class="result-label">ҮР ДҮНГИЙН ТАЙЛБАР</span><h2>{{ result.interpretation }}</h2><p>{{ result.guidance }}</p></div>
+      <div>
+        <span class="result-label">Q-CHAT-10 ҮР ДҮНГИЙН ТАЙЛБАР</span>
+        <h2>{{ result.interpretation }}</h2>
+        <p>{{ result.guidance }}</p>
+        {% if result.threshold_reached %}
+        <p class="result-next-step">Дараагийн алхам: хүүхдийн эмч эсвэл мэргэшсэн эрүүл мэндийн ажилтантай зөвлөлдөнө үү.</p>
+        {% else %}
+        <p class="result-next-step">Энэ нь аутизм байхгүйг үгүйсгэхгүй. Санаа зовж байвал мэргэжлийн хүнтэй ярилцах, эсвэл үнэлгээг дахин хийх боломжтой.</p>
+        {% endif %}
+      </div>
     </article>
-    <div class="next-steps">
-      <h2>Дараагийн алхам</h2>
-      <div class="next-step-card"><span class="next-step-number">01</span><p>Энэ мэдээллийг хүүхдийнхээ хөгжлийн талаар мэргэжлийн хүнтэй ярилцахдаа лавлагаа болгон ашиглаж болно.</p></div>
-      <div class="next-step-card"><span class="next-step-number">02</span><p>Таны санаа зовж буй зүйл байвал онооноос үл хамааран хүүхдийн эмчтэй зөвлөлдөөрэй.</p></div>
+
+    <div id="results-experiment"
+      data-assessment-id="{{ assessment_id }}"
+      data-qchat-indicator="{{ 'threshold-reached' if result.threshold_reached else 'below-threshold' }}"
+      data-eye-status="{{ eye_tracking_status }}">
+      <div class="separate-results-grid">
+        <article class="separate-result-card">
+          <span class="result-label">КАМЕРЫН ТУРШИЛТ · EYE-TRACKING</span>
+          <h2>Браузерын хэмжилтийн тойм</h2>
+          <p class="result-availability" id="eye-result-status">{{ eye_tracking_label }}</p>
+          <p id="eye-result-summary">Харцны чиглэлийн бодит тойм энэ үнэлгээнд боломжгүй байна. Камерын дүрс, нүүрний зураг, калибровкийн дээж сервер рүү дамжаагүй.</p>
+          <p id="eye-result-limit">Landmark илрүүлэлт ба ойролцоо gaze дүрслэл нь баталгаажсан скринингийн үзүүлэлт биш.</p>
+        </article>
+        <article class="separate-result-card">
+          <span class="result-label">СУДАЛГААНЫ ЗАГВАР</span>
+          <h2>ML үр дүн</h2>
+          <p class="result-availability">Боломжгүй · энэ урсгалд холбогдоогүй</p>
+          <p>Одоогийн браузерын туршилт нь загварын яг шаарддаг зургаан feature-ийн тодорхойлолт, тооцооллыг хангахгүй. Дутуу feature зохиох, Q-CHAT-10 хариултаас хөрвүүлэхгүй; загварын prediction гаргахгүй.</p>
+          <p>Хяналттай хөгжүүлэлтэд зориулсан тусдаа research API хэвээр байна. ML үр дүн онош биш.</p>
+        </article>
+      </div>
+
+      <section class="experimental-results-section" aria-labelledby="experimental-results-title">
+        <span class="result-label">ХОЁР ЭХ ҮҮСВЭРИЙГ ТУСАД НЬ ҮНЭЛЭХ</span>
+        <h2 id="experimental-results-title">Туршилтын үр дүн ба дүгнэлт</h2>
+        <div class="experimental-source-grid">
+          <div><h3>Q-CHAT-10</h3><p>Оноо: {{ result.score }}/10. {{ "Одоогийн лавлагааны босго хүрсэн." if result.threshold_reached else "Одоогийн лавлагааны босго хүрээгүй." }} Энэ нь онош биш.</p></div>
+          <div><h3>Камерын туршилт</h3><p id="experimental-eye-summary">Eye-tracking-ийн valid хэмжилт байхгүй эсвэл браузерын тойм энэ үр дүнд ирээгүй байна.</p></div>
+        </div>
+        <p id="experimental-comparison" class="experimental-comparison">Харьцуулалт: одоогийн ойролцоо gaze чиглэл нь баталгаажсан screening indicator биш тул хоёр эх үүсвэрийн нийцэл, зөрүүг тогтоох үндэслэл байхгүй.</p>
+        <p id="experimental-conclusion" class="experimental-conclusion" role="status" aria-live="polite">Дүгнэлт гаргаагүй: eye-tracking хэмжилт дутуу эсвэл хоёр эх үүсвэрийг харьцуулах баталгаажсан арга байхгүй. Дутуу мэдээлэл нь хөгжлийн эсвэл эрүүл мэндийн дохио биш.</p>
+        <p class="experimental-limitations">Хязгаарлалт: gaze нь нүдний хүрээтэй харьцуулсан туршилтын ойролцоо тооцоо; Q-CHAT-10-аас хараат бус баталгаажуулалт, өгөгдлийн тодорхойлолтын тохирол, клиникийн нарийвчлал байхгүй. Лавлагааны босго хүрсэн тохиолдолд мэргэшсэн эрүүл мэндийн ажилтантай зөвлөлдөнө үү. Босго хүрээгүй нь аутизмыг үгүйсгэхгүй.</p>
+      </section>
     </div>
-    <div class="medical-disclaimer"><strong>Чухал:</strong> Энэ бол скринингийн оноо болохоос онош эсвэл аутизмын магадлал биш. Үр дүнгээр хүүхдийг эрүүл, эрүүл бус, хэвийн эсвэл хэвийн бус гэж тодорхойлохгүй.</div>
-    <div class="results-actions"><a class="button button-primary" href="{{ url_for('screening') }}">Үнэлгээг дахин эхлүүлэх</a><button class="button button-secondary" type="button" id="print-results">Үр дүнг хэвлэх</button></div>
+
+    <section class="composite-score-card" aria-labelledby="result-quality-title">
+      <h2 id="result-quality-title">Өгөгдлийн чанар ба хангалттай байдал</h2>
+      <p class="composite-score-explanation">Q-CHAT-10-ын 10 хариултын оноог тооцсон. Камерын өгөгдөл алгассан, боломжгүй, эсвэл зөвхөн ойролцоо browser хэмжилт байж болно. Үүнийг 1–10 интеграцчилсан оноо эсвэл ML feature болгон хөрвүүлэхгүй.</p>
+      <p class="composite-score-explanation">Камерын tracking тасалдах, нүүр эсвэл нүд илрэхгүй байх нь хүүхдийн зан үйл, хөгжлийн байдал, эрүүл мэндийн талаар дохио болохгүй.</p>
+    </section>
+
+    <div class="medical-disclaimer">
+      <strong>Чухал:</strong> Synora нь эрт үеийн скрининг, судалгааны туслах прототип бөгөөд эмнэлзүйн оношилгооны систем биш. Ямар ч үр дүнгээр хүүхдийн хөгжлийн байдлыг эцэслэн дүгнэхгүй.
+    </div>
+    <div class="results-actions">
+      <a class="button button-primary" href="{{ url_for('assessment_start') }}">Шинэ үнэлгээ эхлүүлэх</a>
+      <button class="button button-secondary" type="button" id="print-results">Мэдээллийг хэвлэх</button>
+    </div>
   </div>
 </section>
 {% endblock %}

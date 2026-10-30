@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Үнэлгээг эхлүүлэх — Synora{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container">
+    <span class="eyebrow"><span class="eyebrow-dot"></span> Нэгдсэн үнэлгээ · эхлэх</span>
+    <h1>Үнэлгээг<br><span>хамтдаа эхлүүлье</span></h1>
+    <p>Эхлээд Q-CHAT-10 асуулгыг бөглөж, дараа нь хүсвэл браузер доторх камерын судалгааны туршилтыг хийнэ. Камер ашиглахгүйгээр алгасаад үр дүнгээ үзэх боломжтой.</p>
+  </div>
+</section>
+<section class="assessment-start-section">
+  <div class="container assessment-start-layout">
+    <div class="assessment-steps" aria-label="Үнэлгээний үе шат">
+      <article><span>01</span><div><h2>Q-CHAT-10</h2><p>10 асуулт, 18–24 сарын насны хүрээ.</p></div></article>
+      <article><span>02</span><div><h2>Камерын туршилт</h2><p>Сайн дурын 5 цэгийн калибровк, туршилтын gaze дүрслэл. Камерыг алгасаж болно.</p></div></article>
+      <article><span>03</span><div><h2>Үр дүн</h2><p>Асуулгын оноо, боломжтой browser-side хэмжилтийн тойм, өгөгдлийн хязгаарлалтыг тус тусад нь харуулна.</p></div></article>
+    </div>
+    <form class="assessment-consent-card" action="{{ url_for('start_assessment') }}" method="post">
+      <span class="result-label">НУУЦЛАЛ БА ЗӨВШӨӨРӨЛ</span>
+      <h2>Эхлэхийн өмнө</h2>
+      <ul>
+        <li>Камерын дүрс сервер рүү дамжихгүй, хадгалахгүй, бичлэг хийхгүй. Нүүр/нүдний илрүүлэлт браузер дотор явагдана.</li>
+        <li>Камер ашиглахад тусдаа зөвшөөрөл асууна. Камерыг ашиглахгүй, эсвэл зөвшөөрөл олдохгүй байсан ч үр дүнг үргэлжлүүлэн үзэж болно.</li>
+        <li>Хүүхдийн оролцоотой судалгаанд асран хамгаалагчийн зөвшөөрөл болон хүүхдийн нас, хөгжлийн түвшинд тохирсон оролцох зөвшөөрөл (assent) авна. Хүүхэд татгалзвал камерыг бүү ашигла.</li>
+        <li>Эхлэх зөвшөөрөл нь Q-CHAT-10-ын хариу болон браузер дотор түр тооцсон туршилтын тоймыг энэ сессэд боловсруулахыг зөвшөөрнө. Байнгын хадгалалт тусдаа сонголт, идэвхжүүлсэн орчинд тусдаа зөвшөөрөл шаардана.</li>
+      </ul>
+      <label class="consent-option assessment-guardian-consent">
+        <input type="checkbox" name="guardian_consent" value="yes" required>
+        <span>Би асран хамгаалагч эсвэл оролцуулах эрх бүхий хүн мөн. Нууцлалын мэдээллийг уншсан бөгөөд дээрх нөхцөлийг зөвшөөрч байна.</span>
+      </label>
+      {% if consent_error %}<p class="form-error" role="alert">{{ consent_error }}</p>{% endif %}
+      <button class="button button-primary" type="submit">Үнэлгээг эхлүүлэх <span aria-hidden="true">→</span></button>
+      <p class="assessment-consent-note">Synora нь эрт үеийн скрининг, судалгааны туслах прототип бөгөөд оношилгоо биш. <a href="{{ url_for('privacy') }}">Нууцлалын мэдээлэл</a></p>
+    </form>
+  </div>
+</section>
+{% endblock %}

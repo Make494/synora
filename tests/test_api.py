@@ -13,6 +13,7 @@ def client():
 
 
 def test_screening_page_has_questionnaire_and_navigation(client):
+    client.post("/assessment/start", data={"guardian_consent": "yes"})
     response = client.get("/screening")
     assert response.status_code == 200
     page = response.get_data(as_text=True)
@@ -24,6 +25,29 @@ def test_screening_page_has_questionnaire_and_navigation(client):
     assert 'name="age_months"' in page
     assert "/static/js/screening.js" in page
     assert page.count("Өдөрт олон удаа") >= 1
+
+
+def test_screening_requires_guardian_consent_workflow(client):
+    response = client.get("/screening")
+
+    assert response.status_code == 302
+    assert response.headers["Location"].endswith("/assessment")
+
+
+def test_homepage_assessment_link_and_camera_assets_are_served(client):
+    homepage = client.get("/").get_data(as_text=True)
+    assert 'href="/assessment"' in homepage
+
+    client.post("/assessment/start", data={"guardian_consent": "yes"})
+    assert client.get("/screening").status_code == 200
+    client.post(
+        "/api/screening",
+        json={"age_months": 20, "answers": ["A"] * 10},
+    )
+    camera_page = client.get("/camera").get_data(as_text=True)
+    assert 'src="/static/js/camera.js"' in camera_page
+    assert client.get("/static/js/camera.js").status_code == 200
+    assert client.get("/static/js/gaze.mjs").status_code == 200
 
 
 def test_unified_assessment_requires_guardian_consent_and_clears_previous_result(client):

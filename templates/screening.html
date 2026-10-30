@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Анхан шатны үнэлгээ — Synora{% endblock %}
 {% block content %}
-<section class="page-hero compact-hero"><div class="container"><span class="eyebrow">Q-CHAT-10 · 18–24 сар</span><h1>Хүүхдийн хөгжлийн<br><span>анхан шатны үнэлгээ</span></h1><p>Дараах 10 асуултад хүүхдийнхээ өдөр тутмын зан үйлд хамгийн сайн тохирох хариултыг сонгоно уу.</p></div></section>
+<section class="page-hero compact-hero"><div class="container"><span class="eyebrow">{% if assessment_active %}АЛХАМ 1 / 3 · {% endif %}Q-CHAT-10 · 18–24 сар</span><h1>Хүүхдийн хөгжлийн<br><span>анхан шатны үнэлгээ</span></h1><p>Дараах 10 асуултад хүүхдийнхээ өдөр тутмын зан үйлд хамгийн сайн тохирох хариултыг сонгоно уу. {% if assessment_active %}Дуусмагц камерын туршилт руу үргэлжилнэ; камерыг тэнд алгасаж болно.{% endif %}</p></div></section>
 <section class="screening-section">
   <div class="container screening-layout">
     <div class="screening-main">

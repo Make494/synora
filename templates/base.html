@@ -20,11 +20,11 @@
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Цэс нээх"><span></span><span></span><span></span></button>
       <nav class="site-nav" id="site-nav" aria-label="Үндсэн цэс">
         <a href="{{ url_for('index') }}">Нүүр</a>
-        <a href="{{ url_for('screening') }}">Скрининг</a>
+        <a href="{{ url_for('assessment_start') }}">Нэгдсэн үнэлгээ</a>
         <a href="{{ url_for('about') }}">Бидний тухай</a>
         <a href="{{ url_for('index') }}#faq">Түгээмэл асуултууд</a>
         <a href="{{ url_for('privacy') }}">Нууцлал</a>
-        <a class="button button-primary nav-cta" href="{{ url_for('screening') }}">Үнэлгээг эхлүүлэх</a>
+        <a class="button button-primary nav-cta" href="{{ url_for('assessment_start') }}">Үнэлгээг эхлүүлэх</a>
       </nav>
     </div>
   </header>

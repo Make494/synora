@@ -113,7 +113,7 @@
       if (!response.ok || result.success !== true) {
         throw new Error(result.error || "Үнэлгээг боловсруулахад алдаа гарлаа.");
       }
-      window.location.assign("/results");
+      window.location.assign(result.next_url || "/results");
     } catch (error) {
       submitError.textContent =
         error instanceof TypeError

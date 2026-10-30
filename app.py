@@ -101,6 +101,9 @@ def create_app(test_config=None):
 
     @app.get("/screening")
     def screening():
+        if not session.get("assessment_id") or not session.get("guardian_consent"):
+            return redirect(url_for("assessment_start"))
+
         questions_path = BASE_DIR / "data" / "questions_mn.json"
         with questions_path.open(encoding="utf-8") as questions_file:
             questions = json.load(questions_file)
